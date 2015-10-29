@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '5.0'
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
-  s.source_files = 'Classes', 'Classes/**/*.{h,m}'
-  s.prefix_header_file = 'Classes/DVVAST.pch'
+  s.source_files = 'DVVAST/Classes', 'DVVAST/Classes/**/*.{h,m}'
+  s.prefix_header_file = 'DVVAST/Classes/DVVAST.pch'
   s.frameworks = 'Foundation', 'AVFoundation', 'AudioToolbox', 'CoreMedia', 'CoreGraphics', 'UIKit'
   s.library   = 'xml2'
   s.requires_arc = true
