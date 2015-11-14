@@ -149,8 +149,9 @@
             NSString *type = [[currentMF attributeForName:@"type"] stringValue];
             if (([type isEqualToString:@"mobile/m3u8"] || [type isEqualToString:@"video/mp4"] || [type isEqualToString:@"video/x-mp4"])) {
                 int bitrate = [[[currentMF attributeForName:@"bitrate"] stringValue] intValue];
-                if (bitrate > mediaFileBitrate) {
+                if (bitrate > 800) {
                     mediaFile = currentMF;
+                    break;
                 }
                 mediaFileBitrate = bitrate;
             }
