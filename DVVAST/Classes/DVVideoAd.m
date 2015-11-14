@@ -18,8 +18,8 @@
     if (url) {
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-            VLogV(context);
-            VLogV(response.URL);
+            //VLogV(context);
+            //VLogV(response.URL);
             if (error) {
                 VLogV(error);
             }
