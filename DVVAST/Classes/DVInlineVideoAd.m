@@ -30,9 +30,9 @@
 - (void)trackImpressions
 {
     // Trigger those babies, async of course!
-    VLogV(self.impressionURLs);
+    //VLogV(self.impressionURLs);
     [self.impressionURLs enumerateObjectsUsingBlock:^(NSURL *url, NSUInteger idx, BOOL *stop) {
-        VLogV(url);
+        //VLogV(url);
         [self sendAsynchronousRequest:url context:@"trackImpressions"];
     }];
 }
@@ -42,8 +42,8 @@
     if ([self.trackingEvents[event] isKindOfClass:[NSDictionary class]]) { // Should be.
         NSDictionary *dictionary = (NSDictionary*)self.trackingEvents[event];
         [dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSURL *url, BOOL *stop) {
-            VLogV(key);
-            VLogV(url);
+            //VLogV(key);
+            //VLogV(url);
             NSString *context = [NSString stringWithFormat:@"trackEvent: %@ (%@)", event, key];
             [self sendAsynchronousRequest:url context:context];
         }];
