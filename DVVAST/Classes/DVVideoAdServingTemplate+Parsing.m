@@ -42,13 +42,13 @@
     [impressionElements enumerateObjectsUsingBlock:^(DDXMLElement *impressionElement, NSUInteger idx, BOOL *stop) {
         [self addURLElement:impressionElement toArray:impressionURLs];
     }];
-    VLogV(impressionURLs);
+    //VLogV(impressionURLs);
     videoAd.impressionURLs = impressionURLs;
     if (impressionURLs.count) {
         // For compatibility sake (code using ios-vast-player's "single" impressionURL)
         videoAd.impressionURL =  impressionURLs[0];
     }
-    VLogV(videoAd.impressionURLs);
+    //VLogV(videoAd.impressionURLs);
     
     NSArray *videos = [element elementsForName:@"Video"];
     DDXMLElement *videoElement = nil;
@@ -95,13 +95,13 @@
         [clickTrackingElements enumerateObjectsUsingBlock:^(DDXMLElement *clickTrackingElement, NSUInteger idx, BOOL *stop) {
             [self addURLElement:clickTrackingElement toArray:clickTrackingURLs];
         }];
-        VLogV(clickTrackingURLs);
+        //VLogV(clickTrackingURLs);
         videoAd.clickTrackingURLs = clickTrackingURLs;
         if (clickTrackingURLs.count) {
             // For compatibility sake (code using ios-vast-player's "single" clickTrackingURL)
             videoAd.clickTrackingURL =  clickTrackingURLs[0];
         }
-        VLogV(videoAd.clickTrackingURLs);
+        //VLogV(videoAd.clickTrackingURLs);
     }
     
 #define TRACKING_EVENTS @"TrackingEvents"
@@ -120,9 +120,9 @@
             NSMutableDictionary *innerDictionary = dictionary[event] ? [dictionary[event] mutableCopy] : [NSMutableDictionary dictionary];
             if (!urls.count) {
                 if (!trackingElement.isEmpty) {
-                    VLogV(trackingElement.stringValue);
+                    //VLogV(trackingElement.stringValue);
                     NSString *key = [NSString stringWithFormat:@"url-%lu", (unsigned long)innerDictionary.allKeys.count];
-                    VLogV(key);
+                    //VLogV(key);
                     innerDictionary[key] = [NSURL URLWithString:trackingElement.stringValue];
                 }
             } else {
@@ -137,7 +137,7 @@
         }];
         videoAd.trackingEvents = dictionary;
     }
-    VLogV(videoAd.trackingEvents);
+    //VLogV(videoAd.trackingEvents);
     
     NSArray *mediaFilesArray = [videoElement elementsForName:@"MediaFiles"];
     if (mediaFilesArray && mediaFilesArray.count) {
@@ -181,7 +181,7 @@
 {
     if (!element.isEmpty) {
         NSURL *url = [NSURL URLWithString:element.stringValue];
-        VLogV(url);
+        //VLogV(url);
         if (url) {
             [array addObject:url];
         }
@@ -225,7 +225,7 @@
         }
         // TODO: Parse this (inline) + self (wrapper!)
         ((DVWrapperVideoAd*)videoAd).URL = [NSURL URLWithString:[vastTagURI stringValue]];
-        VLogV(((DVWrapperVideoAd*)videoAd).URL);
+        //VLogV(((DVWrapperVideoAd*)videoAd).URL);
         
         NSError *inlineVideoAdError = nil;
         if (! [self populateInlineVideoAd:(DVInlineVideoAd *)videoAd
@@ -287,7 +287,7 @@
         
         DDXMLElement *rootElement = [document rootElement];
         NSArray *adElements = [rootElement elementsForName:@"Ad"];
-        VLogV(adElements);
+        //VLogV(adElements);
         for (DDXMLElement *adElement in adElements) {
             NSError *videoAdError = nil;
             DVVideoAd *videoAd = [self videoAdWithXMLElement:adElement error:&videoAdError];
