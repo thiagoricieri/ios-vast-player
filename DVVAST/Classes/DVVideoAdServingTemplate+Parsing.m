@@ -144,6 +144,7 @@
         DDXMLElement *mediaFiles = [mediaFilesArray objectAtIndex:0];
         DDXMLElement *mediaFile = nil;
         int mediaFileBitrate = 0;
+        DDXMLElement *anyMF;
         DDXMLElement *currentMF;
         for (currentMF in [mediaFiles elementsForName:@"MediaFile"]) {
             NSString *type = [[currentMF attributeForName:@"type"] stringValue];
@@ -154,11 +155,12 @@
                     break;
                 }
                 mediaFileBitrate = bitrate;
+                anyMF = currentMF;
             }
         }
         if (!mediaFile) {
             // just pick the last one
-            mediaFile = currentMF;
+            mediaFile = anyMF;
         }
         NSArray *urls = [mediaFile elementsForName:@"URL"];
         DDXMLDocument *url = urls && urls.count ? [urls objectAtIndex:0] : mediaFile;
