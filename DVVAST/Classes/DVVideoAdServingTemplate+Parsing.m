@@ -143,18 +143,16 @@
     if (mediaFilesArray && mediaFilesArray.count) {
         DDXMLElement *mediaFiles = [mediaFilesArray objectAtIndex:0];
         DDXMLElement *mediaFile = nil;
-        int mediaFileBitrate = 0;
         DDXMLElement *anyMF;
         DDXMLElement *currentMF;
         for (currentMF in [mediaFiles elementsForName:@"MediaFile"]) {
             NSString *type = [[currentMF attributeForName:@"type"] stringValue];
             if (([type isEqualToString:@"mobile/m3u8"] || [type isEqualToString:@"video/mp4"] || [type isEqualToString:@"video/x-mp4"])) {
                 int bitrate = [[[currentMF attributeForName:@"bitrate"] stringValue] intValue];
-                if (bitrate > 800) {
+                int selectedBitrate = mediaFile != nil ? [[[mediaFile attributeForName:@"bitrate"] stringValue] intValue] : -1;
+                if ((bitrate > selectedBitrate && bitrate < [self.maxBitrate intValue]) || (selectedBitrate == -1)) {
                     mediaFile = currentMF;
-                    break;
                 }
-                mediaFileBitrate = bitrate;
                 anyMF = currentMF;
             }
         }
@@ -258,8 +256,9 @@
     return videoAd;
 }
 
-- (id)initWithData:(NSData *)data error:(NSError *__autoreleasing *)error_
+- (id)initWithData:(NSData *)data maxBitrate:(NSNumber *)bitrate error:(NSError *__autoreleasing *)error_
 {
+    self.maxBitrate = bitrate;
     NSError *error = nil;
     self.document = [[DDXMLDocument alloc] initWithData:data options:0 error:&error];
     if (! self.document) {

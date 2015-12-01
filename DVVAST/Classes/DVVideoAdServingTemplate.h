@@ -25,6 +25,7 @@ enum {
 
 @interface DVVideoAdServingTemplate : NSObject
 
+@property (nonatomic, copy) NSNumber *maxBitrate;
 @property (nonatomic, copy) NSArray *ads;
 @property (strong, nonatomic) DDXMLDocument *document;
 

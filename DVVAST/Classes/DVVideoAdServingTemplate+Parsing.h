@@ -18,7 +18,7 @@
 
 @interface DVVideoAdServingTemplate (Parsing)
 
-- (id)initWithData:(NSData *)data error:(NSError **)error;
+- (id)initWithData:(NSData *)data maxBitrate:(NSNumber *)bitrate error:(NSError **)error;
 - (id)initWithXMLDocument:(DDXMLDocument *)document error:(NSError **)error;
 - (BOOL)populateInlineVideoAd:(DVInlineVideoAd *)videoAd withXMLElement:(DDXMLElement *)element error:(NSError **)error;
 

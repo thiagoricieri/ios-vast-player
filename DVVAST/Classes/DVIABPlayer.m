@@ -506,7 +506,7 @@ NSString *const DVIABPlayerErrorDomain = @"DVIABPlayerErrorDomain";
     VLog(@"%@", [[NSString alloc] initWithData:self.adRequestData encoding:NSUTF8StringEncoding]);
     
     NSError *error = nil;
-    DVVideoAdServingTemplate *adTemplate = [[DVVideoAdServingTemplate alloc] initWithData:self.adRequestData error:&error];
+    DVVideoAdServingTemplate *adTemplate = [[DVVideoAdServingTemplate alloc] initWithData:self.adRequestData maxBitrate:0  error:&error];
     self.adRequestData = nil;
     if (! adTemplate) {
         if ([self.delegate respondsToSelector:@selector(player:didFailPlayBreak:withError:)]) {
