@@ -143,8 +143,9 @@
     if (mediaFilesArray && mediaFilesArray.count) {
         DDXMLElement *mediaFiles = [mediaFilesArray objectAtIndex:0];
         DDXMLElement *mediaFile = nil;
-        DDXMLElement *anyMF;
+        DDXMLElement *lowestMF;
         DDXMLElement *currentMF;
+        int lowestBitrate = 1000000000;
         for (currentMF in [mediaFiles elementsForName:@"MediaFile"]) {
             NSString *type = [[currentMF attributeForName:@"type"] stringValue];
             if (([type isEqualToString:@"mobile/m3u8"] || [type isEqualToString:@"video/mp4"] || [type isEqualToString:@"video/x-mp4"])) {
@@ -153,12 +154,14 @@
                 if ((bitrate > selectedBitrate && bitrate < [self.maxBitrate intValue]) || (selectedBitrate == -1)) {
                     mediaFile = currentMF;
                 }
-                anyMF = currentMF;
+                if (bitrate < lowestBitrate) {
+                    lowestMF = currentMF;
+                }
             }
         }
         if (!mediaFile) {
             // just pick the last one
-            mediaFile = anyMF;
+            mediaFile = lowestMF;
         }
         NSArray *urls = [mediaFile elementsForName:@"URL"];
         DDXMLDocument *url = urls && urls.count ? [urls objectAtIndex:0] : mediaFile;
